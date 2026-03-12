@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getReportBySlug } from "@/lib/wp";
+import { getReports, getReportBySlug } from "@/lib/wp";
 import { sanitizeHtml } from "@/lib/sanitize";
+
+export async function generateStaticParams() {
+    const reports = await getReports();
+    return reports.map((r) => ({ slug: r.slug }));
+}
 
 export default async function ReportPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -11,7 +16,7 @@ export default async function ReportPage({ params }: { params: Promise<{ slug: s
 
     return (
         <article className="min-h-screen bg-creme pb-24">
-            {/* Hero */}
+            {/* Hero — full width, no sidebar */}
             <div className="w-full h-[40vh] md:h-[50vh] bg-gray-dark relative overflow-hidden">
                 {report.imageUrl ? (
                     <img src={report.imageUrl} alt={report.title} className="w-full h-full object-cover opacity-70 grayscale" />
@@ -21,6 +26,7 @@ export default async function ReportPage({ params }: { params: Promise<{ slug: s
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-creme/90" />
             </div>
 
+            {/* Single column — no sidebar */}
             <div className="max-w-3xl mx-auto px-6 -mt-24 relative z-10">
                 <Link href="/nachberichte" className="inline-flex items-center text-sm font-sans text-gray-500 hover:text-gold-dark transition-colors mb-8 tracking-widest uppercase">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getEventBySlug } from "@/lib/wp";
+import { getEvents, getEventBySlug } from "@/lib/wp";
 import { sanitizeHtml } from "@/lib/sanitize";
+
+export async function generateStaticParams() {
+    const events = await getEvents();
+    return events.map((e) => ({ slug: e.slug }));
+}
 
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -9,9 +14,14 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
     if (!event) return notFound();
 
+    // Build Google Maps link from location
+    const mapsUrl = event.location
+        ? `https://maps.google.com/maps?q=${encodeURIComponent(event.location)}`
+        : null;
+
     return (
         <article className="min-h-screen bg-creme pb-24">
-            {/* Hero Image */}
+            {/* Hero Image — full width, no sidebar */}
             <div className="w-full h-[40vh] md:h-[50vh] bg-gray-dark relative overflow-hidden">
                 {event.imageUrl ? (
                     <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover opacity-80" />
@@ -21,6 +31,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-creme/90" />
             </div>
 
+            {/* Single column content — no sidebar */}
             <div className="max-w-3xl mx-auto px-6 -mt-24 relative z-10">
                 <Link href="/veranstaltungen" className="inline-flex items-center text-sm font-sans text-gray-500 hover:text-gold-dark transition-colors mb-8 tracking-widest uppercase">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -39,7 +50,22 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                         {event.location && (
                             <>
                                 <span className="hidden sm:inline">·</span>
-                                <span>{event.location}</span>
+                                {mapsUrl ? (
+                                    <a
+                                        href={mapsUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1.5 text-hofburg-red hover:underline"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                            <circle cx="12" cy="10" r="3" />
+                                        </svg>
+                                        {event.location}
+                                    </a>
+                                ) : (
+                                    <span>{event.location}</span>
+                                )}
                             </>
                         )}
                     </div>
@@ -53,18 +79,34 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                     />
                 )}
 
-                {/* CTA */}
+                {/* CTA — Anmeldung */}
                 <div className="mt-16 border-t border-b border-gold-primary/30 py-10 flex flex-col items-center">
                     <h3 className="font-serif text-3xl text-gray-800 mb-4">Möchten Sie teilnehmen?</h3>
                     <p className="font-sans text-gray-600 mb-8 text-center max-w-md">
                         Die Plätze im Salon sind begrenzt. Wir bitten um rechtzeitige Anmeldung.
                     </p>
-                    <Link
-                        href="/kontakt"
-                        className="bg-gray-dark text-creme px-8 py-3 rounded-sm font-sans hover:bg-gold-primary transition-colors text-sm uppercase tracking-widest"
-                    >
-                        Zur Anmeldung
-                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <Link
+                            href="/kontakt"
+                            className="bg-gray-dark text-creme px-8 py-3 rounded-sm font-sans hover:bg-gold-primary transition-colors text-sm uppercase tracking-widest"
+                        >
+                            Zur Anmeldung
+                        </Link>
+                        {mapsUrl && (
+                            <a
+                                href={mapsUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="border border-gray-dark text-gray-dark px-8 py-3 rounded-sm font-sans hover:bg-gray-dark hover:text-creme transition-colors text-sm uppercase tracking-widest inline-flex items-center gap-2"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                Karte anzeigen
+                            </a>
+                        )}
+                    </div>
                 </div>
             </div>
         </article>

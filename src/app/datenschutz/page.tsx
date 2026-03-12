@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function DatenschutzPage() {
     return (
         <article className="min-h-screen bg-creme relative pt-32 pb-32">
@@ -20,7 +22,7 @@ export default function DatenschutzPage() {
                         Philosophischer Salon<br />
                         [Adresse einfügen]<br />
                         Wien, Österreich<br />
-                        E-Mail: kontakt@philosophischer-salon.at
+                        <Link href="/kontakt" className="text-hofburg-red hover:underline">Kontaktformular</Link>
                     </p>
 
                     <h3>2. Erhebung und Verarbeitung personenbezogener Daten</h3>
@@ -36,7 +38,7 @@ export default function DatenschutzPage() {
                     <ul>
                         <li>Name</li>
                         <li>Telefonnummer</li>
-                        <li>Adresse</li>
+                        <li>Adresse (Straße, Hausnummer, PLZ, Ort, Land)</li>
                         <li>E-Mail-Adresse</li>
                         <li>Bereitschaft zur Teilnahme an der Telegram-Gruppe (optional)</li>
                     </ul>
@@ -68,8 +70,8 @@ export default function DatenschutzPage() {
 
                     <h3>7. Kontakt</h3>
                     <p>
-                        Bei Fragen zum Datenschutz wenden Sie sich bitte an:<br />
-                        kontakt@philosophischer-salon.at
+                        Bei Fragen zum Datenschutz wenden Sie sich bitte über unser{" "}
+                        <Link href="/kontakt" className="text-hofburg-red hover:underline">Kontaktformular</Link> an uns.
                     </p>
                 </div>
             </div>

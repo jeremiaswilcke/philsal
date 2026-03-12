@@ -6,6 +6,11 @@ import { submitMembershipAction, type FormState } from "./actions";
 
 const initialState: FormState = { success: false };
 
+const inputClass =
+    "w-full px-4 py-3 bg-white/60 border border-gray-300 rounded-lg font-sans text-gray-900 focus:outline-none focus:border-gold-primary focus:ring-1 focus:ring-gold-primary transition-colors";
+
+const labelClass = "block text-sm font-sans text-gray-600 uppercase tracking-wider mb-2";
+
 export function MemberForm() {
     const [state, formAction, isPending] = useActionState(submitMembershipAction, initialState);
 
@@ -35,65 +40,50 @@ export function MemberForm() {
                 )}
 
                 <div>
-                    <label htmlFor="name" className="block text-sm font-sans text-gray-600 uppercase tracking-wider mb-2">
-                        Name *
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        className="w-full px-4 py-3 bg-white/60 border border-gray-300 rounded-lg font-sans text-gray-900 focus:outline-none focus:border-gold-primary focus:ring-1 focus:ring-gold-primary transition-colors"
-                    />
+                    <label htmlFor="name" className={labelClass}>Name *</label>
+                    <input type="text" id="name" name="name" required className={inputClass} />
                 </div>
 
                 <div>
-                    <label htmlFor="telefon" className="block text-sm font-sans text-gray-600 uppercase tracking-wider mb-2">
-                        Telefon *
-                    </label>
-                    <input
-                        type="tel"
-                        id="telefon"
-                        name="telefon"
-                        required
-                        className="w-full px-4 py-3 bg-white/60 border border-gray-300 rounded-lg font-sans text-gray-900 focus:outline-none focus:border-gold-primary focus:ring-1 focus:ring-gold-primary transition-colors"
-                    />
+                    <label htmlFor="telefon" className={labelClass}>Telefon *</label>
+                    <input type="tel" id="telefon" name="telefon" required className={inputClass} />
                 </div>
 
-                <div>
-                    <label htmlFor="adresse" className="block text-sm font-sans text-gray-600 uppercase tracking-wider mb-2">
-                        Adresse *
-                    </label>
-                    <input
-                        type="text"
-                        id="adresse"
-                        name="adresse"
-                        required
-                        className="w-full px-4 py-3 bg-white/60 border border-gray-300 rounded-lg font-sans text-gray-900 focus:outline-none focus:border-gold-primary focus:ring-1 focus:ring-gold-primary transition-colors"
-                    />
-                </div>
+                {/* Adresse — datenbankgerecht aufgeteilt */}
+                <fieldset className="space-y-4">
+                    <legend className={labelClass}>Adresse *</legend>
+
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className="col-span-2">
+                            <input type="text" id="strasse" name="strasse" required placeholder="Straße" className={inputClass} />
+                        </div>
+                        <div>
+                            <input type="text" id="hausnummer" name="hausnummer" required placeholder="Nr." className={inputClass} />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                        <div>
+                            <input type="text" id="plz" name="plz" required placeholder="PLZ" className={inputClass} />
+                        </div>
+                        <div className="col-span-2">
+                            <input type="text" id="ort" name="ort" required placeholder="Ort" className={inputClass} />
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="text" id="land" name="land" defaultValue="Österreich" placeholder="Land" className={inputClass} />
+                    </div>
+                </fieldset>
 
                 <div>
-                    <label htmlFor="email" className="block text-sm font-sans text-gray-600 uppercase tracking-wider mb-2">
-                        E-Mail *
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        className="w-full px-4 py-3 bg-white/60 border border-gray-300 rounded-lg font-sans text-gray-900 focus:outline-none focus:border-gold-primary focus:ring-1 focus:ring-gold-primary transition-colors"
-                    />
+                    <label htmlFor="email" className={labelClass}>E-Mail *</label>
+                    <input type="email" id="email" name="email" required className={inputClass} />
                 </div>
 
                 <div className="pt-4 space-y-4">
                     <label className="flex items-start gap-3 cursor-pointer">
-                        <input
-                            type="checkbox"
-                            name="datenschutz"
-                            required
-                            className="mt-1 w-4 h-4 accent-hofburg-red"
-                        />
+                        <input type="checkbox" name="datenschutz" required className="mt-1 w-4 h-4 accent-hofburg-red" />
                         <span className="text-sm font-sans text-gray-600 font-light">
                             Ich habe die{" "}
                             <Link href="/datenschutz" className="text-hofburg-red hover:underline" target="_blank">
@@ -104,11 +94,7 @@ export function MemberForm() {
                     </label>
 
                     <label className="flex items-start gap-3 cursor-pointer">
-                        <input
-                            type="checkbox"
-                            name="telegramWilling"
-                            className="mt-1 w-4 h-4 accent-hofburg-red"
-                        />
+                        <input type="checkbox" name="telegramWilling" className="mt-1 w-4 h-4 accent-hofburg-red" />
                         <span className="text-sm font-sans text-gray-600 font-light">
                             Ich bin bereit, der Telegram-Gruppe des Philosophischen Salons beizutreten.
                         </span>

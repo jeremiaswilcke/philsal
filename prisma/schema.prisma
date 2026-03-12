@@ -11,9 +11,23 @@ model MembershipApplication {
   id              Int      @id @default(autoincrement())
   name            String
   telefon         String
-  adresse         String
+  strasse         String
+  hausnummer      String
+  plz             String
+  ort             String
+  land            String   @default("Österreich")
   email           String
   datenschutz     Boolean
   telegramWilling Boolean  @default(false)
   createdAt       DateTime @default(now())
+}
+
+model ContactInquiry {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  kategorie String
+  eventId   String?
+  nachricht String
+  createdAt DateTime @default(now())
 }

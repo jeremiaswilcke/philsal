@@ -31,9 +31,9 @@ export default function SpendenPage() {
 
                     <p className="font-sans text-gray-500 text-sm text-center mt-8">
                         Der Philosophische Salon ist ein gemeinnütziger Verein.
-                        Für Fragen kontaktieren Sie uns unter{" "}
-                        <a href="mailto:kontakt@philosophischer-salon.at" className="text-hofburg-red hover:underline">
-                            kontakt@philosophischer-salon.at
+                        Für Fragen{" "}
+                        <a href="/kontakt" className="text-hofburg-red hover:underline">
+                            kontaktieren Sie uns
                         </a>.
                     </p>
                 </div>

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function ImpressumPage() {
     return (
         <article className="min-h-screen bg-creme relative pt-32 pb-32">
@@ -27,7 +29,7 @@ export default function ImpressumPage() {
 
                     <h3>Kontakt</h3>
                     <p>
-                        E-Mail: kontakt@philosophischer-salon.at
+                        <Link href="/kontakt" className="text-hofburg-red hover:underline">Zum Kontaktformular</Link>
                     </p>
 
                     <h3>Verantwortlich für den Inhalt</h3>

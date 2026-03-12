@@ -13,12 +13,16 @@ export async function submitMembershipAction(
 ): Promise<FormState> {
   const name = formData.get("name") as string | null;
   const telefon = formData.get("telefon") as string | null;
-  const adresse = formData.get("adresse") as string | null;
+  const strasse = formData.get("strasse") as string | null;
+  const hausnummer = formData.get("hausnummer") as string | null;
+  const plz = formData.get("plz") as string | null;
+  const ort = formData.get("ort") as string | null;
+  const land = (formData.get("land") as string | null) || "Österreich";
   const email = formData.get("email") as string | null;
   const datenschutz = formData.get("datenschutz") === "on";
   const telegramWilling = formData.get("telegramWilling") === "on";
 
-  if (!name || !telefon || !adresse || !email) {
+  if (!name || !telefon || !strasse || !hausnummer || !plz || !ort || !email) {
     return { success: false, error: "Bitte füllen Sie alle Pflichtfelder aus." };
   }
 
@@ -36,7 +40,11 @@ export async function submitMembershipAction(
       data: {
         name: name.trim(),
         telefon: telefon.trim(),
-        adresse: adresse.trim(),
+        strasse: strasse.trim(),
+        hausnummer: hausnummer.trim(),
+        plz: plz.trim(),
+        ort: ort.trim(),
+        land: land.trim(),
         email: email.trim(),
         datenschutz,
         telegramWilling,

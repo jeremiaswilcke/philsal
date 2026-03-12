@@ -31,3 +31,16 @@ model ContactInquiry {
   nachricht String
   createdAt DateTime @default(now())
 }
+
+model EventRegistration {
+  id        Int      @id @default(autoincrement())
+  eventSlug String
+  name      String
+  email     String
+  telefon   String?
+  personen  Int      @default(1)
+  anmerkung String?
+  createdAt DateTime @default(now())
+
+  @@index([eventSlug])
+}

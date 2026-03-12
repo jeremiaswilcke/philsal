@@ -102,10 +102,10 @@ export function EventFrame({ events = [] }: EventFrameProps) {
                 <Link href="/veranstaltungen" className="px-6 py-2 border border-gold-primary text-gray-800 font-sans font-medium text-sm hover:bg-gold-light/10 transition-colors">
                     Alle Veranstaltungen
                 </Link>
-                <button className="px-6 py-2 border border-gold-primary text-gray-800 font-sans font-medium text-sm hover:bg-gold-light/10 transition-colors flex items-center">
+                <a href="/api/calendar" className="px-6 py-2 border border-gold-primary text-gray-800 font-sans font-medium text-sm hover:bg-gold-light/10 transition-colors flex items-center">
                     <CalendarIcon />
                     Kalender abonnieren
-                </button>
+                </a>
             </div>
         </div>
     );

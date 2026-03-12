@@ -3,22 +3,17 @@ import { BentoGrid } from "@/components/ui/BentoGrid";
 import { NewsGrid } from "@/components/ui/NewsGrid";
 import { HeroCarousel } from "@/components/ui/HeroCarousel";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { getUpcomingEvents, getLatestNews, getSiteConfig } from "@/lib/mockData";
+import { getEvents, getNews, getSiteConfig } from "@/lib/wp";
 
 export default async function Home() {
-  const events = await getUpcomingEvents();
-  const news = await getLatestNews();
+  const events = await getEvents();
+  const news = await getNews();
   const config = await getSiteConfig();
 
   return (
     <main className="min-h-screen bg-creme selection:bg-gold-light selection:text-gray-dark">
-      {/* Hero Section with Carousel (replaces old static hero) */}
       <section className="relative w-full pt-20">
         <HeroCarousel />
-
-        {/* We keep a subtle title below or overlaid? Actually the Carousel has titles. 
-            Let's keep the user's config Title just below the header as a classical intro, 
-            or inside the page flow. Let's place it here with a FadeIn. */}
         <FadeIn delay={0.2} direction="up">
           <div className="text-center pt-24 pb-12 px-6 max-w-4xl mx-auto">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-gray-dark tracking-wide mb-6">

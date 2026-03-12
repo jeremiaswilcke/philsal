@@ -1,19 +1,17 @@
 import { ContactForm } from "./ContactForm";
-import { getUpcomingEvents } from "@/lib/mockData";
-import { mockEvents } from "@/lib/mockData";
+import { getEvents } from "@/lib/wp";
 
-// Combine all events, marking past ones
-// In a real WP setup this would fetch from the API
-function getAllEventsForDropdown() {
-    // For now, treat mockEvents as the full list.
-    // Events with dates in the past get past=true.
+export default async function KontaktPage() {
+    const allEvents = await getEvents();
+
+    // Parse German dates and mark past events
     const now = new Date();
-    return mockEvents.map((e) => {
-        // Parse German date format "DD. Monat YYYY"
-        const months: Record<string, number> = {
-            Januar: 0, Februar: 1, März: 2, April: 3, Mai: 4, Juni: 5,
-            Juli: 6, August: 7, September: 8, Oktober: 9, November: 10, Dezember: 11,
-        };
+    const months: Record<string, number> = {
+        Januar: 0, Februar: 1, März: 2, April: 3, Mai: 4, Juni: 5,
+        Juli: 6, August: 7, September: 8, Oktober: 9, November: 10, Dezember: 11,
+    };
+
+    const events = allEvents.map((e) => {
         let past = false;
         const match = e.date.match(/(\d+)\.\s+(\w+)\s+(\d{4})/);
         if (match) {
@@ -24,10 +22,6 @@ function getAllEventsForDropdown() {
         }
         return { id: e.id, title: e.title, date: e.date, past };
     });
-}
-
-export default async function KontaktPage() {
-    const events = getAllEventsForDropdown();
 
     return (
         <article className="min-h-screen bg-creme relative pt-32 pb-32">

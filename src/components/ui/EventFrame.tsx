@@ -26,7 +26,7 @@ export interface SalonEvent {
     time?: string;
     excerpt?: string;
     imageUrl?: string;
-    url?: string;
+    url: string;
 }
 
 interface EventFrameProps {
@@ -58,7 +58,7 @@ export function EventFrame({ events = [] }: EventFrameProps) {
             {hasEvents ? (
                 <div className="w-full max-w-2xl text-left space-y-8 mb-12">
                     {events.map((event) => (
-                        <Link href={event.url || "#"} key={event.id} className="flex gap-6 border-b border-gray-200/60 pb-6 group">
+                        <Link href={event.url} key={event.id} className="flex gap-6 border-b border-gray-200/60 pb-6 group">
                             {/* Thumbnail */}
                             {event.imageUrl ? (
                                 <div className="shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full border border-gold-primary overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">

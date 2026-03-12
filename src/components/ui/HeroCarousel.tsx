@@ -20,7 +20,7 @@ const defaultSlides: Slide[] = [
         title: "Der Salon öffnet seine Pforten",
         subtitle: "Ein physischer und intellektueller Raum für den echten Diskurs.",
         imageUrl: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=1200&auto=format&fit=crop",
-        link: "/neuigkeiten/der-salon-oeffnet",
+        link: "/neuigkeiten/gruendung",
         linkText: "Mehr erfahren"
     },
     {

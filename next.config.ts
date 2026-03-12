@@ -1,10 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* Disable specific caches that struggle on SMB networks like os error 45 */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      // Add your WordPress domain here when configured:
+      // { protocol: "https", hostname: "wp.philosophischer-salon.at" },
+    ],
+  },
   webpack: (config, { dev }) => {
     if (dev) {
-      config.cache = false; // Disable webpack cache entirely in dev
+      config.cache = false;
     }
     return config;
   },

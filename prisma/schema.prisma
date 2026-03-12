@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model MembershipApplication {
+  id              Int      @id @default(autoincrement())
+  name            String
+  telefon         String
+  adresse         String
+  email           String
+  datenschutz     Boolean
+  telegramWilling Boolean  @default(false)
+  createdAt       DateTime @default(now())
+}

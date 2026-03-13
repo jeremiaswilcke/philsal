@@ -47,7 +47,6 @@ export function eventToICS(event: WWDEvent, baseUrl: string): string {
         `DTSTART:${formatICalDate(start)}`,
         `DTEND:${formatICalDate(end)}`,
         `SUMMARY:${escapeIcal(event.title)}`,
-        event.location ? `LOCATION:${escapeIcal(event.location)}` : "",
         event.excerpt ? `DESCRIPTION:${escapeIcal(event.excerpt)}` : "",
         `URL:${baseUrl}/veranstaltungen/${event.slug}`,
         "END:VEVENT",
@@ -78,7 +77,6 @@ export function eventsToICSFeed(events: WWDEvent[], baseUrl: string): string {
             `DTEND:${formatICalDate(end)}`,
             `SUMMARY:${escapeIcal(event.title)}`,
         );
-        if (event.location) lines.push(`LOCATION:${escapeIcal(event.location)}`);
         if (event.excerpt) lines.push(`DESCRIPTION:${escapeIcal(event.excerpt)}`);
         lines.push(`URL:${baseUrl}/veranstaltungen/${event.slug}`);
         lines.push("END:VEVENT");

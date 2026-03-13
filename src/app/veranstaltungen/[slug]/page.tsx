@@ -15,10 +15,6 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
     if (!event) return notFound();
 
-    const mapsUrl = event.location
-        ? `https://maps.google.com/maps?q=${encodeURIComponent(event.location)}`
-        : null;
-
     return (
         <article className="min-h-screen bg-creme pb-24">
             {/* Hero Image */}
@@ -47,23 +43,6 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                     </h1>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-gray-500 font-sans text-base">
                         <span>{event.date} {event.time && ` | ${event.time}`}</span>
-                        {event.location && (
-                            <>
-                                <span className="hidden sm:inline">·</span>
-                                {mapsUrl ? (
-                                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1.5 text-hofburg-red hover:underline">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                                            <circle cx="12" cy="10" r="3" />
-                                        </svg>
-                                        {event.location}
-                                    </a>
-                                ) : (
-                                    <span>{event.location}</span>
-                                )}
-                            </>
-                        )}
                     </div>
 
                     {/* iCal + Map quick actions */}
@@ -79,20 +58,6 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                             </svg>
                             Zum Kalender hinzufügen
                         </a>
-                        {mapsUrl && (
-                            <a
-                                href={mapsUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 text-sm font-sans text-gray-500 hover:text-gold-dark transition-colors border border-gray-300 rounded-full px-4 py-2"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                                    <circle cx="12" cy="10" r="3" />
-                                </svg>
-                                Karte
-                            </a>
-                        )}
                     </div>
                 </div>
 

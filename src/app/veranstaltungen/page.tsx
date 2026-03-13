@@ -66,11 +66,6 @@ export default async function VeranstaltungenArchive() {
                                                 {event.excerpt}
                                             </p>
                                         )}
-                                        {event.location && (
-                                            <p className="text-gold-light/70 font-sans text-xs uppercase tracking-widest mt-4">
-                                                {event.location}
-                                            </p>
-                                        )}
                                     </div>
                                 </div>
                             </Link>

@@ -18,7 +18,6 @@ export interface WWDEvent {
     title: string;
     date: string;
     time?: string;
-    location?: string;
     excerpt?: string;
     content?: string;
     imageUrl?: string;

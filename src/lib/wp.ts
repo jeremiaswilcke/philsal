@@ -33,7 +33,6 @@ function mapWPEvent(wp: any): WWDEvent {
         title: wp.title?.rendered ?? wp.title,
         date: wp.meta?.event_date ?? wp.date?.slice(0, 10) ?? "",
         time: wp.meta?.event_time,
-        location: wp.meta?.event_location,
         excerpt: wp.excerpt?.rendered?.replace(/<[^>]+>/g, "").trim() ?? "",
         content: wp.content?.rendered ?? "",
         imageUrl: wp._embedded?.["wp:featuredmedia"]?.[0]?.source_url,

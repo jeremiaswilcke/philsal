@@ -55,8 +55,8 @@ export async function GET(
     });
     y -= 20;
 
-    // Date + Location
-    const meta = [event.date, event.time, event.location].filter(Boolean).join(" | ");
+    // Date
+    const meta = [event.date, event.time].filter(Boolean).join(" | ");
     page.drawText(meta, {
         x: margin,
         y,
